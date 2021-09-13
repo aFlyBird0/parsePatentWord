@@ -9,7 +9,7 @@ import (
 
 
 
-func (doc *Doc)Get()(paras []*Para)  {
+func (doc *Doc)Get()(paras Paras)  {
 	return doc.paras
 }
 
@@ -47,7 +47,7 @@ func (myDoc *Doc)getParaOutlineAndContent() {
 	}
 }
 
-func Read()  (paras []*Para){
+func Read()  (paras Paras){
 	doc := newDoc("\\static\\《专利审查指南》(2020年2月1日实施版).docx")
 	doc.getParaOutlineAndContent()
 	return doc.Get()

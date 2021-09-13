@@ -5,9 +5,11 @@ package read
 
 type Doc struct {
 	//读取出的文档类
-	paras []*Para
+	paras Paras
 	filename string	//相对于主目录的存储路径
 }
+
+type Paras []*Para
 
 type Para struct {
 	// 封装了大纲和内容的类

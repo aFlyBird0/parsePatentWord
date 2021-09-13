@@ -71,25 +71,6 @@ type Doc struct {
 	*html.Node
 }
 
-func TestHtmlQuery()  {
-	filePath := util.GetRunPath()
-	filename := filePath + "\\static\\《专利审查指南》(2020年2月1日实施版).htm"
-	//filename := filePath + "\\static\\mini.htm"
-	doc, err := htmlquery.LoadDoc(filename)
-	if err != nil {
-		fmt.Println(err)
-	}
-	//getAllH1(doc)
-	//getAllH2(doc)
-	myDoc := Doc{doc}
-	//myDoc.getContents(h1)
-	//myDoc.getContents(h2)
-	myDoc.getContents(h3)
-	//myDoc.getContents(h4)
-	//myDoc.getContents(h5)
-	//myDoc.getContents(h6)
-}
-
 func getAllH1(doc *html.Node)  {
 	firstCates := htmlquery.Find(doc, "//p[contains(@style,'mso-outline-level:\n1')]")
 	for _, firstCate := range firstCates{
