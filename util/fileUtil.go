@@ -6,7 +6,7 @@ import (
 )
 
 // 获取项目运行路径，即 /main.go 的位置
-func GetRunPath() (filePathStr string){
+func GetRunPath() (filePathStr string) {
 	// 第一次用 go 正式写代码，所以可能走了弯路
 	_, fileStr, _, _ := runtime.Caller(1)
 	// fileStr : ....../parsePatentWord/read/readTry.go

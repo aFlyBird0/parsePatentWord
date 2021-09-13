@@ -5,17 +5,17 @@ import (
 	"strings"
 )
 
-func (paras Paras)Combine()(parasReturn Paras)  {
+func (paras Paras) Combine() (parasReturn Paras) {
 	//合并相同层级段
 	parasReturn = make(Paras, 0, len(paras))
 	//parasReturn = make(Paras, len(paras))
 	var accContent strings.Builder
 	lastLvl := -1
-	for _, para := range paras{
+	for _, para := range paras {
 		curLvl := para.outlineLvl
 		curContent := para.content
 		// 如果上一个 outlineLevel 和当前的不同，就把之前累积的字符存进去
-		if lastLvl != curLvl{
+		if lastLvl != curLvl {
 			parasReturn = append(parasReturn, &Para{lastLvl, strings.TrimSpace(accContent.String())})
 			accContent.Reset()
 		}
@@ -25,6 +25,6 @@ func (paras Paras)Combine()(parasReturn Paras)  {
 		lastLvl = curLvl
 		//fmt.Println(para)
 	}
-	fmt.Printf("目录+段落一共 %d 条", len(parasReturn) - 1)
+	fmt.Printf("目录+段落一共 %d 条", len(parasReturn)-1)
 	return parasReturn[1:]
 }

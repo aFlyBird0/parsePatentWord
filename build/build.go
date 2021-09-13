@@ -1,6 +1,6 @@
 /*
 组装前面获取的段落，加入层级属性，并存入数据库
- */
+*/
 package build
 
 import (
@@ -16,10 +16,10 @@ type trace struct {
 
 type stack struct {
 	cateIds []int "当前的层次最深的分类，在数据库中的分类号"
-	top int
+	top     int
 }
 
-func Build(docName string)  {
+func Build(docName string) {
 	paras := read.Get(docName)
 	// 创建追踪树，设定目前 lvl 为 -1,即树根
 	t := &trace{-1, stack{make([]int, 0, 10), -1}}
@@ -54,7 +54,7 @@ func Build(docName string)  {
 				lvlMinus := t.lastLevel - curLvl
 				// 如果层级减1，pop 两次；减2，3次
 				//之前相同的时候，可以理解为层级减0，pop 1次
-				for i:=0;i<lvlMinus+1; i++ {
+				for i := 0; i < lvlMinus+1; i++ {
 					t.stack.pop()
 				}
 				id := save.SaveCate(curContent, t.CateId())
@@ -68,16 +68,16 @@ func Build(docName string)  {
 		}
 	}
 }
-func (s *stack)append(id int)  {
+func (s *stack) append(id int) {
 	s.cateIds = append(s.cateIds, id)
 	s.top++
 }
 
-func (s *stack)pop()  {
+func (s *stack) pop() {
 	s.cateIds = s.cateIds[:s.top]
 	s.top--
 }
 
-func (s *stack)CateId()(cateId int)  {
+func (s *stack) CateId() (cateId int) {
 	return s.cateIds[s.top]
 }

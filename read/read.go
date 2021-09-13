@@ -7,17 +7,14 @@ import (
 	"parsePatentWord/util"
 )
 
-
-
-func (doc *Doc)Get()(paras Paras)  {
+func (doc *Doc) Get() (paras Paras) {
 	return doc.paras
 }
 
-
-func (para Para)String() string {
+func (para Para) String() string {
 	return fmt.Sprintf("%v : %s", para.outlineLvl, para.content)
 }
-func (myDoc *Doc)getParaOutlineAndContent() {
+func (myDoc *Doc) getParaOutlineAndContent() {
 	filePath := util.GetRunPath()
 	doc, err := document.Open(filePath + myDoc.filename)
 	if err != nil {
@@ -29,9 +26,9 @@ func (myDoc *Doc)getParaOutlineAndContent() {
 	for _, para := range doc.Paragraphs() {
 		//run为每个段落相同格式的文字组成的片段
 		var outlineLvl int64
-		if outlineLvlStruct := para.Properties().X().OutlineLvl; outlineLvlStruct!=nil{
+		if outlineLvlStruct := para.Properties().X().OutlineLvl; outlineLvlStruct != nil {
 			outlineLvl = outlineLvlStruct.ValAttr
-		}else {
+		} else {
 			outlineLvl = 0
 		}
 		//fmt.Printf("大纲：%d\n", outlineLvl)
@@ -47,7 +44,7 @@ func (myDoc *Doc)getParaOutlineAndContent() {
 	}
 }
 
-func Read(filename string)  (paras Paras){
+func Read(filename string) (paras Paras) {
 	//doc := newDoc("\\static\\《专利审查指南》(2020年2月1日实施版).docx")
 	doc := newDoc(filename)
 	doc.getParaOutlineAndContent()

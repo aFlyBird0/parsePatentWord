@@ -22,9 +22,9 @@ func TestGooxmlParse() {
 	for _, para := range doc.Paragraphs() {
 		//run为每个段落相同格式的文字组成的片段
 		var outlineLvl int64
-	    if outlineLvlStruct := para.Properties().X().OutlineLvl; outlineLvlStruct!=nil{
+		if outlineLvlStruct := para.Properties().X().OutlineLvl; outlineLvlStruct != nil {
 			outlineLvl = outlineLvlStruct.ValAttr
-		}else {
+		} else {
 			outlineLvl = 0
 		}
 		fmt.Printf("大纲：%d\n", outlineLvl)
@@ -47,7 +47,7 @@ func TestGooxmlParse() {
 	}
 }
 
-func TestNewDocGooxml()  {
+func TestNewDocGooxml() {
 	filePath := util.GetRunPath()
 	doc := document.New()
 	p := doc.AddParagraph()
@@ -56,6 +56,7 @@ func TestNewDocGooxml()  {
 	r.AddText("这是我加的标题一")
 	doc.SaveToFile(filePath + "\\static\\testNewDoc.doc")
 }
+
 type outlineLevel string
 
 const (
@@ -71,18 +72,18 @@ type Doc struct {
 	*html.Node
 }
 
-func getAllH1(doc *html.Node)  {
+func getAllH1(doc *html.Node) {
 	firstCates := htmlquery.Find(doc, "//p[contains(@style,'mso-outline-level:\n1')]")
-	for _, firstCate := range firstCates{
+	for _, firstCate := range firstCates {
 		//fmt.Printf("%d:%v\n", index, item)
 		firstCateList := htmlquery.Find(firstCate, "//text()")
 		var firstCateStr string = ""
-		for _, item := range firstCateList{
+		for _, item := range firstCateList {
 			//fmt.Printf("%d:%v", indexJ, item)
 			firstCateStr += item.Data
 		}
 		firstCateStr = strings.TrimSpace(firstCateStr)
-		if  firstCateStr!= ""{
+		if firstCateStr != "" {
 			fmt.Println(firstCateStr)
 		}
 
@@ -91,11 +92,10 @@ func getAllH1(doc *html.Node)  {
 	fmt.Println(len(firstCates))
 }
 
-
-func (doc Doc)getContents(level outlineLevel)  {
-	expr := "//p[contains(@style,'mso-outline-level:"+string(level)+"')]"
+func (doc Doc) getContents(level outlineLevel) {
+	expr := "//p[contains(@style,'mso-outline-level:" + string(level) + "')]"
 	cates := htmlquery.Find(doc.Node, expr)
-	for _, cate := range cates{
+	for _, cate := range cates {
 		//fmt.Printf("%d:%v\n", index, item)
 		cateList := htmlquery.Find(cate, "//span/text()")
 		//cateList := htmlquery.Find(cate, "//*[not(table)]/span[not(contains(@style, 'left:0pt'))]//text()")
@@ -103,18 +103,16 @@ func (doc Doc)getContents(level outlineLevel)  {
 		//cateList := htmlquery.Find(cate, "//span[contains(@style, 'font-family:黑体')]/text()")
 
 		var cateStr string
-		for _, item := range cateList{
+		for _, item := range cateList {
 			//fmt.Printf("%d:%v", indexJ, item)
 			cateStr += item.Data
 		}
 		cateStr = strings.TrimSpace(cateStr)
-		if  cateStr!= ""{
+		if cateStr != "" {
 			fmt.Println("爱飞的鸟 " + strings.ReplaceAll(cateStr, " ", ""))
 		}
 
 		//firstCateString := strings.Join(, "")
 	}
-	fmt.Printf("共%d条",len(cates))
+	fmt.Printf("共%d条", len(cates))
 }
-
-
