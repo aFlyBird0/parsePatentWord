@@ -9,8 +9,8 @@ import (
 func GetRunPath() (filePathStr string){
 	// 第一次用 go 正式写代码，所以可能走了弯路
 	_, fileStr, _, _ := runtime.Caller(1)
-	// fileStr : ....../parsePatentWord/parse/parseTry.go
-	// 所以要获得根目录路径，就把 /parse/parseTry.go 忽略
+	// fileStr : ....../parsePatentWord/read/readTry.go
+	// 所以要获得根目录路径，就把 /read/readTry.go 忽略
 	filenameSlice := strings.Split(fileStr, "/")
 	filePathSlice := filenameSlice[:len(filenameSlice)-2]
 	filePathStr = strings.Join(filePathSlice, "\\")

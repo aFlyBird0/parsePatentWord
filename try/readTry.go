@@ -1,4 +1,4 @@
-package parse
+package try
 
 import (
 	"baliance.com/gooxml/document"
@@ -111,7 +111,7 @@ func getAllH1(doc *html.Node)  {
 }
 
 
-func (doc Doc)getContents(level outlineLevel )  {
+func (doc Doc)getContents(level outlineLevel)  {
 	expr := "//p[contains(@style,'mso-outline-level:"+string(level)+"')]"
 	cates := htmlquery.Find(doc.Node, expr)
 	for _, cate := range cates{
