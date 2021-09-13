@@ -14,8 +14,8 @@ func (doc *Doc)Get()(paras Paras)  {
 }
 
 
-func (p Para)String() string {
-	return fmt.Sprintf("%v : %s", p.outlineLvl, p.content)
+func (para Para)String() string {
+	return fmt.Sprintf("%v : %s", para.outlineLvl, para.content)
 }
 func (myDoc *Doc)getParaOutlineAndContent() {
 	filePath := util.GetRunPath()
@@ -41,14 +41,15 @@ func (myDoc *Doc)getParaOutlineAndContent() {
 		}
 		//fmt.Println(paraStr)
 		if paraStr != "" {
-			myDoc.paras = append(myDoc.paras, &Para{outlineLvl, paraStr})
+			myDoc.paras = append(myDoc.paras, &Para{int(outlineLvl), paraStr})
 		}
 
 	}
 }
 
-func Read()  (paras Paras){
-	doc := newDoc("\\static\\《专利审查指南》(2020年2月1日实施版).docx")
+func Read(filename string)  (paras Paras){
+	//doc := newDoc("\\static\\《专利审查指南》(2020年2月1日实施版).docx")
+	doc := newDoc(filename)
 	doc.getParaOutlineAndContent()
 	return doc.Get()
 }

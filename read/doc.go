@@ -13,10 +13,18 @@ type Paras []*Para
 
 type Para struct {
 	// 封装了大纲和内容的类
-	outlineLvl int64
+	outlineLvl int
 	content string
 }
 
 func newDoc(filename string) (doc *Doc) {
 	return &Doc{filename: filename}
+}
+
+func (para *Para)Content()(content string)  {
+	return para.content
+}
+
+func (para *Para)Lvl() (lvl int) {
+	return para.outlineLvl
 }
