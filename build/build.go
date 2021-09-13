@@ -19,9 +19,7 @@ type stack struct {
 	top int
 }
 
-func Build()  {
-	//docName := "\\static\\《专利审查指南》(2020年2月1日实施版).docx"
-	docName := "\\static\\mini.docx"
+func Build(docName string)  {
 	paras := read.Get(docName)
 	// 创建追踪树，设定目前 lvl 为 -1,即树根
 	t := &trace{-1, stack{make([]int, 0, 10), -1}}
@@ -40,6 +38,7 @@ func Build()  {
 			if curLvl > t.lastLevel {
 				id := save.SaveCate(curContent, t.CateId())
 				t.stack.append(id)
+				// 层级增加的时候，每次一定是加 1
 				t.lastLevel++
 			} else if curLvl == t.lastLevel {
 				// 相同层级
@@ -49,16 +48,19 @@ func Build()  {
 				id := save.SaveCate(curContent, t.CateId())
 				t.stack.append(id)
 			} else {
-				// 层级变浅，即遇到更大的目录
-				// 与上面类似， pop 两次即可
-				// 第一次 pop 同级，第二次 pop 父级
-				// 可以理解为, 每次 pop 一次， trace 的等级就加1（变浅1）
-				// 最终要 pop 到 栈顶的值大于 现在
-				t.stack.pop()
-				t.stack.pop()
+				// 层级变浅，例如从 3 级目录变成 1 级目录
+				// 层级减少的时候，不一定是减1，可能直接从 3 级目录变成 1 级了，这时候要减2
+				// 最终要 pop 到 栈顶的值刚好比现在大 1
+				lvlMinus := t.lastLevel - curLvl
+				// 如果层级减1，pop 两次；减2，3次
+				//之前相同的时候，可以理解为层级减0，pop 1次
+				for i:=0;i<lvlMinus+1; i++ {
+					t.stack.pop()
+				}
 				id := save.SaveCate(curContent, t.CateId())
 				t.stack.append(id)
-				t.lastLevel--
+				t.lastLevel -= lvlMinus
+				// 因为根目录设定的 level 是 -1 不是 0，所以要修正一下
 				if t.lastLevel == 0 {
 					t.lastLevel = -1
 				}
