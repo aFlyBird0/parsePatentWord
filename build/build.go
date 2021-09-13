@@ -20,8 +20,8 @@ type stack struct {
 }
 
 func Build()  {
-	docName := "\\static\\《专利审查指南》(2020年2月1日实施版).docx"
-	//docName := "\\static\\mini.docx"
+	//docName := "\\static\\《专利审查指南》(2020年2月1日实施版).docx"
+	docName := "\\static\\mini.docx"
 	paras := read.Get(docName)
 	// 创建追踪树，设定目前 lvl 为 -1,即树根
 	t := &trace{-1, stack{make([]int, 0, 10), -1}}
