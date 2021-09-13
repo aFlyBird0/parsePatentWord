@@ -22,7 +22,7 @@ type stack struct {
 func Build(docName string) {
 	paras := read.Get(docName)
 	// 创建追踪树，设定目前 lvl 为 -1,即树根
-	t := &trace{-1, stack{make([]int, 0, 10), -1}}
+	t := &trace{0, stack{make([]int, 0, 10), -1}}
 	//获得整本书的目录
 	rootId := save.SaveCate("专利审查指南", -1)
 	t.stack.append(rootId)
@@ -60,10 +60,6 @@ func Build(docName string) {
 				id := save.SaveCate(curContent, t.CateId())
 				t.stack.append(id)
 				t.lastLevel -= lvlMinus
-				// 因为根目录设定的 level 是 -1 不是 0，所以要修正一下
-				if t.lastLevel == 0 {
-					t.lastLevel = -1
-				}
 			}
 		}
 	}
