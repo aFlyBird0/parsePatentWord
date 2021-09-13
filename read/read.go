@@ -7,21 +7,7 @@ import (
 	"parsePatentWord/util"
 )
 
-type Doc struct {
-	//读取出的文档类
-	paras []*Para
-	filename string	//相对于主目录的存储路径
-}
 
-type Para struct {
-	// 封装了大纲和内容的类
-	outlineLvl int64
-	content string
-}
-
-func newDoc(filename string) (doc *Doc) {
-	return &Doc{filename: filename}
-}
 
 func (doc *Doc)Get()(paras []*Para)  {
 	return doc.paras
