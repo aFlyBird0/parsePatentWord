@@ -1,11 +1,20 @@
 package read
 
 import (
-	"baliance.com/gooxml/document"
 	"fmt"
+	"github.com/unidoc/unioffice/common/license"
+	"github.com/unidoc/unioffice/document"
 	"log"
+	"os"
 	"parsePatentWord/util"
 )
+
+func init()  {
+	err := license.SetMeteredKey(os.Getenv(`UNIDOC_LICENSE_API_KEY`))
+	if err != nil {
+		panic(err)
+	}
+}
 
 func (doc *Doc) Get() (paras Paras) {
 	return doc.paras
