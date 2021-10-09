@@ -1,5 +1,5 @@
 # 专利审查指南解析
-本项目代码地址：[BirdBirdLee/parsePatentWord: 利用 Golang 解析《专利审查指南 2020...doc》，并将标题、段落层级关系存至数据库](https://github.com/BirdBirdLee/parsePatentWord)
+本项目代码地址：[aFlyBird0/parsePatentWord: 利用 Golang 解析《专利审查指南 2020...doc》，并将标题、段落层级关系存至数据库](https://github.com/aFlyBird0/parsePatentWord)
 ## 〇、本项目的由来、意义
 ### 由来
 导师布置了个任务，提取《专利审查指南...》，做成电子书。所以第一步是把标题层级和段落内容提取到数据库里面。  
